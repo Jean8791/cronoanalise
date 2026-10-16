@@ -49,6 +49,7 @@ Pré-requisitos: JDK 8 e um MySQL local com o banco `cronoanalise`.
 
 ```bash
 export DB_PASSWORD=sua_senha
+export JWT_SECRET=$(openssl rand -base64 48)
 ./mvnw spring-boot:run
 ```
 
