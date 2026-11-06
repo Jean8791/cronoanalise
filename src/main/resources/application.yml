@@ -1,0 +1,49 @@
+server:
+  port: ${PORT:8080}
+  forward-headers-strategy: ${CRONO_FORWARD_HEADERS:none}
+  error:
+    include-message: never
+
+spring:
+  application:
+    name: cronoanalise
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:cronoanalise}?sslmode=${DB_SSLMODE:disable}
+    username: ${DB_USERNAME:cronoanalise}
+    password: ${DB_PASSWORD:cronoanalise}
+    hikari:
+      maximum-pool-size: ${DB_POOL:5}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+crono:
+  jwt:
+    segredo: ${JWT_SECRET:}
+    validade: ${JWT_VALIDADE:8h}
+  admin:
+    login: ${CRONO_ADMIN_LOGIN:}
+    senha: ${CRONO_ADMIN_SENHA:}
+  demo:
+    login: ${CRONO_DEMO_LOGIN:}
+    senha: ${CRONO_DEMO_SENHA:}
+  login:
+    limite-tentativas: ${CRONO_LOGIN_LIMITE:10}
+    janela: ${CRONO_LOGIN_JANELA:15m}
+    cabecalho-ip: ${CRONO_CABECALHO_IP:}
+  cors-origens: ${CORS_ORIGINS:http://localhost:5173}
