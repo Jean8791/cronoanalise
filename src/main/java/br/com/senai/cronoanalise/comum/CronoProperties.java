@@ -12,9 +12,19 @@ public record CronoProperties(Jwt jwt, Admin admin, Demo demo, Login login, List
     }
 
     public record Admin(String login, String senha) {
+
+        public Admin {
+            login = limpar(login);
+            senha = limpar(senha);
+        }
     }
 
     public record Demo(String login, String senha) {
+
+        public Demo {
+            login = limpar(login);
+            senha = limpar(senha);
+        }
 
         public boolean ativo() {
             return login != null && !login.isBlank() && senha != null && !senha.isBlank();
@@ -26,5 +36,9 @@ public record CronoProperties(Jwt jwt, Admin admin, Demo demo, Login login, List
     }
 
     public record Login(int limiteTentativas, Duration janela, String cabecalhoIp) {
+    }
+
+    private static String limpar(String valor) {
+        return valor == null ? null : valor.strip();
     }
 }
